@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "title": "Move",
+    "description": "Coordinates To Play The Game",
+    "type": "object",
+    "properties": {
+        "x": {
+            "description": "X Coordinate To Play",
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "exclusiveMaximum":10
+        },
+        "y": {
+            "description": "Y Coordinate To Play",
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "exclusiveMaximum":10
+        }
+    },
+    "required": ["x", "y"]
+}

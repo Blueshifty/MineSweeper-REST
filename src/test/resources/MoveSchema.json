@@ -1,0 +1,24 @@
+{
+    "title": "Move",
+    "description": "Coordinates To Play The Game",
+    "type": "object",
+    "properties": {
+        "x": {
+            "description": "X Coordinate To Play",
+            "type": "integer",
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "maximum": 9,
+            "exclusiveMaximum": false
+        },
+        "y": {
+            "description": "Y Coordinate To Play",
+            "type": "integer",
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "maximum": 9,
+            "exlusiveMaximum": false
+        }
+    },
+    "required": ["x", "y"]
+}
