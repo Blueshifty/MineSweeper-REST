@@ -102,6 +102,19 @@ public class GameControllerTest {
     }
 
     @Test
+    public void invalidJsonPlayTest() throws Exception{
+        String id = service.addGame();
+        
+        MockHttpServletRequestBuilder builder = 
+         MockMvcRequestBuilders.put("/game/play/"+id)
+         .contentType(MediaType.APPLICATION_JSON_VALUE)
+         .accept(MediaType.APPLICATION_JSON)
+         .characterEncoding("UTF-8")
+         .content("{\"x\":\"string\", \"y\":\"string\"}");
+            mvc.perform(builder).andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void playTest() throws Exception{
         String[] expectedValues = {"Oyun Bitti, Kaybettiniz :(",
         "Mayin Yok, Devam Edin !"};
