@@ -1,11 +1,11 @@
-package com.example.openshift_deneme.service;
+package com.example.openshiftDeneme.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.example.openshift_deneme.OpenshiftDenemeApplication;
-import com.example.openshift_deneme.service.GameService;
-import com.example.openshift_deneme.models.Game;
-import com.example.openshift_deneme.models.Move;
+import com.example.openshiftDeneme.OpenshiftDenemeApplication;
+import com.example.openshiftDeneme.service.GameService;
+import com.example.openshiftDeneme.models.Game;
+import com.example.openshiftDeneme.models.Move;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

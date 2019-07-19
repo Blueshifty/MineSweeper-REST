@@ -1,4 +1,4 @@
-package com.example.openshift_deneme.models;
+package com.example.openshiftDeneme.models;
 
 import org.springframework.data.annotation.Id;
 

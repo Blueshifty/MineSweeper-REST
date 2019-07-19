@@ -1,4 +1,4 @@
-package com.example.openshift_deneme;
+package com.example.openshiftDeneme;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

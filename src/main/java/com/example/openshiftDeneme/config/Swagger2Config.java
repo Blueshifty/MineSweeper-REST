@@ -1,4 +1,4 @@
-package com.example.openshift_deneme.config;
+package com.example.openshiftDeneme.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ public class Swagger2Config extends WebMvcConfigurationSupport {
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("com.example.openshift_deneme.controller"))
+				.apis(RequestHandlerSelectors.basePackage("com.example.openshiftDeneme.controller"))
 				.paths(regex("/game.*"))
 				.build().apiInfo(apiEndPointsInfo());
 	}

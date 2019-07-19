@@ -1,7 +1,7 @@
-package com.example.openshift_deneme.repositories;
+package com.example.openshiftDeneme.repositories;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import com.example.openshift_deneme.models.Game;
+import com.example.openshiftDeneme.models.Game;
 
 public interface GameRepository extends MongoRepository<Game, String>{
 

@@ -1,9 +1,9 @@
-package com.example.openshift_deneme.controller;
+package com.example.openshiftDeneme.controller;
 
-import com.example.openshift_deneme.models.Game;
-import com.example.openshift_deneme.models.Move;
-import com.example.openshift_deneme.service.GameService;
-import com.example.openshift_deneme.json.JsonSchemaValidate;
+import com.example.openshiftDeneme.models.Game;
+import com.example.openshiftDeneme.models.Move;
+import com.example.openshiftDeneme.service.GameService;
+import com.example.openshiftDeneme.json.JsonSchemaValidate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

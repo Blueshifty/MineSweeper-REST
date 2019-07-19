@@ -1,8 +1,8 @@
-package com.example.openshift_deneme.service;
+package com.example.openshiftDeneme.service;
 
-import com.example.openshift_deneme.models.Game;
-import com.example.openshift_deneme.models.Move;
-import com.example.openshift_deneme.repositories.GameRepository;
+import com.example.openshiftDeneme.models.Game;
+import com.example.openshiftDeneme.models.Move;
+import com.example.openshiftDeneme.repositories.GameRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;

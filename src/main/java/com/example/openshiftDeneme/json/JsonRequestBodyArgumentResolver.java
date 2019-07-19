@@ -1,4 +1,4 @@
-package com.example.openshift_deneme.json;
+package com.example.openshiftDeneme.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.everit.json.schema.ValidationException;

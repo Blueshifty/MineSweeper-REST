@@ -1,4 +1,4 @@
-package com.example.openshift_deneme.json;
+package com.example.openshiftDeneme.json;
 
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.json.JSONObject;

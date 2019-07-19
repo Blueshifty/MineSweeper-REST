@@ -1,4 +1,4 @@
-package com.example.openshift_deneme.json;
+package com.example.openshiftDeneme.json;
 
 public class JsonSchemaException extends RuntimeException {
 

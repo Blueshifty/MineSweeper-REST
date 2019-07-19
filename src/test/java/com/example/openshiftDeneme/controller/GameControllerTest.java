@@ -1,4 +1,4 @@
-package com.example.openshift_deneme.controller;
+package com.example.openshiftDeneme.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -8,8 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.hamcrest.Matchers.hasSize;
 
-import com.example.openshift_deneme.OpenshiftDenemeApplication;
-import com.example.openshift_deneme.service.GameService;
+import com.example.openshiftDeneme.OpenshiftDenemeApplication;
+import com.example.openshiftDeneme.service.GameService;
 
 import org.junit.Before;
 import org.junit.Test;
