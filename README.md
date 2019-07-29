@@ -1,12 +1,12 @@
 # MineSweeper-With-SpringBoot-Angular-and-MongoDB
 MineSweeper Game With Spring Boot 2, Angular7 and MongoDB
 
-Endpoints of the spring-boot project with swagger:
+Endpoints of The Spring BootProject With Swagger:
 
 ![Alt text](img/img3.png?raw=true "Endpoints:")
 
 
-Main Menu That You can Create, Delete And Play The Games:
+Men Page That You Can Create, Delete And Play The Games:
 
 ![Alt text](img/img1.png?raw=true "Main Page:")
 
