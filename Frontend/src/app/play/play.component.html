@@ -1,0 +1,15 @@
+<h3> Game ID : {{route.snapshot.params.id}}</h3> 
+<br><br><br>
+  <table class="center">
+    <tr *ngFor="let row of board">
+      <td *ngFor="let col of row">
+        <app-mine
+          [mine]="col"
+          (LeftClick)="leftClick($event)"
+          ></app-mine>
+      </td>
+    </tr>
+  </table>
+  <br><br>
+<h3>{{message}}</h3>
+    

@@ -1,0 +1,53 @@
+button {
+  height: 5rem;
+  width: 5rem;
+  color: white;
+  font-weight: bold;
+  font-size: 25px;
+  background-color: rgb(145, 145, 146);
+}
+
+button:hover {
+  color: white;
+  background-color: rgb(28, 97, 97);
+}
+
+.color0 {
+  background-color: rgba(255, 0, 0, 0.35);
+}
+
+.color1 {
+  background-color: rgba(255, 0, 0, 0.55);
+}
+
+.color2 {
+  background-color: rgba(255, 0, 0, 0.65);
+}
+
+.color3 {
+  background-color: rgba(255, 0, 0, 0.75);
+}
+.color4 {
+  background-color: rgba(255, 0, 0, 0.85);
+}
+
+.color5 {
+   background-color : rgba(255,0,0,0.95)
+}
+
+.color6{
+  background-color : rgba(255.0,0,0,0.95)
+}
+
+.color7{
+  background-color :rgba(255,0,0,0.95)
+}
+
+.color8{
+  background-color : rgba(255,0,0,0.1)
+}
+
+.color9{
+  color: red;
+  background-color : rgba(23, 26, 22, 0.877)
+}

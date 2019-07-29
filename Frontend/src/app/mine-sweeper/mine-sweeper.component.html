@@ -1,0 +1,27 @@
+<div id="group" class="border-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 ">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th class="text-center">Game ID:</th>
+              <th class="text-center">Actions:</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let game of games">
+                  <td>{{game.id}}</td>
+                  <td>
+                    <a href= "play/{{game.id}}" class="btn btn-info">Play the Game</a>
+                    <button class="btn btn-warning pull-right"   (click)="deleteGame(game)"> Delete Game</button>
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+      </div>
+      <button class ="btn btn-success" (click)="createGame()">Create Game</button>
+      <button class ="btn btn-danger" (click)="deleteAllGame()">Delete All the Games</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+<button
+  (click)="leftClick()"
+  class="btn border rounded text- {{ mine.value != '#' ? 'color' + mine.value : ''}}">
+  <span *ngIf="mine.value !='#' && mine.value != 9">{{ mine.value }}</span>
+  <span *ngIf="mine.value == 9 ">X</span>
+</button>
