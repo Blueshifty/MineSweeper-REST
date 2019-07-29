@@ -10,12 +10,12 @@ public class Game{
     @ApiModelProperty(notes = "Database generated Game ID")
     private String id;
     @ApiModelProperty(notes = "Matrix That Mines are Visible")
-    private char[][] board;
+    private int[][] board;
     @ApiModelProperty(notes = "Matrix That Mines are Invisible")
     private char[][] invisBoard;
 
     public Game(){
-        this.board = new char[10][10];
+        this.board = new int[10][10];
         this.invisBoard= new char[10][10];
     }
 
@@ -35,11 +35,11 @@ public class Game{
         this.invisBoard = invisBoard;
     }
 
-    public char[][] getBoard(){
+    public int[][] getBoard(){
         return this.board;
     }
 
-    public void setBoard(char[][] board){
+    public void setBoard(int[][] board){
         this.board = board;
     }
     

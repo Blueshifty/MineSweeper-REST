@@ -7,14 +7,14 @@
         "x": {
             "description": "X Coordinate To Play",
             "type": "integer",
-            "exclusiveMinimum": 0,
-            "exclusiveMaximum":10
+            "Minimum": 0,
+            "Maximum":9
         },
         "y": {
             "description": "Y Coordinate To Play",
             "type": "integer",
-            "exclusiveMinimum": 0,
-            "exclusiveMaximum":10
+            "Minimum": 0,
+            "Maximum":9
         }
     },
     "required": ["x", "y"]

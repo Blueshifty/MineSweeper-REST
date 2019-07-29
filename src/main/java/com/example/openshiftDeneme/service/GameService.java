@@ -25,70 +25,52 @@ public class GameService {
     public List<Game> getAllGame(){
         return gameRepository.findAll();
     }
+    
+    public char[][] getVisibBoard(String id){
+        Optional<Game> game = gameRepository.findById(id);
+        if(!game.isPresent()){
+            return null; }
+        return game.get().getInvisBoard();
+    }
 
-    public String addGame(){
+    public Game addGame(){
         Game game = new Game();
-        char[][] board = game.getBoard();
+        int[][] board = game.getBoard();
         char[][] invisBoard = game.getInvisBoard();
         for(int i = 0; i<10; ++i){
-            Arrays.fill(board[i], '#');
+            Arrays.fill(board[i], 0);
             Arrays.fill(invisBoard[i], '#');
         }
         mineBoard(board);
         gameRepository.save(game);
-        return game.getId();
+        return game;
     }
 
     public String play(String gameId, Move move){
         Optional<Game> game = gameRepository.findById(gameId);
         if(!game.isPresent()){
-            return "Bu Id'ye Ait Oyun Bulunamadi.";
+            return "Invalid Game!";
         }
         String message = "ZoSo";
         int x = move.getX(), y = move.getY();
-        char[][] board = game.get().getBoard();  
+        int[][] board = game.get().getBoard();  
         char[][] invisBoard = game.get().getInvisBoard();
-        if(board[x][y] == 'X'){
+        if(board[x][y] == 9){
             gameRepository.deleteById(gameId);
-            message = "Oyun Bitti, Kaybettiniz :(";
-        }else if(board[x][y] == '$'){
-            message = "Onceden Secilmis Yeri Sectiniz !";
-        }else{
-            board[x][y] = '$';
-            invisBoard[x][y] = '$';
-            if(isGameOver(board)){
+            message = "Game Over! (Game Has Been Deleted From DB)";
+        } else if(invisBoard[x][y] != '#'){
+            message = "That Place is Opened Already !";
+        } else{
+            playtoBoard(x, y, board, invisBoard);
+            if(isGameOver(invisBoard)){
                 gameRepository.deleteById(gameId);
-                message = "Tebrikler Kazandiniz :)";
-            }else{
+                message = "Gratz You Win !! (Game Has Been Deleted From DB)";
+            } else{
             gameRepository.save(game.get());
-            message = "Mayin Yok, Devam Edin !";            
+            message = "Well played, Go on!";
             }
         }
         return message;
-    }
-
-    private void  mineBoard(char[][] board){
-        Random rand = new Random();
-        int x = 0, y = 0, mine = 0;
-        while(mine < 25){
-            x = rand.nextInt(10);
-            y = rand.nextInt(10);
-            if(board[x][y] != 'X'){
-                board[x][y] = 'X';
-                mine++;
-            }
-        }
-    }
-
-    private boolean isGameOver(char[][] board){
-        for(int i = 0; i < 10; ++i){
-            for(int j = 0; j < 10; ++j){
-                if(board[i][j]=='#'){
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     public void deleteGame(String gameId){
@@ -97,5 +79,63 @@ public class GameService {
     
     public void deleteAllGame(){
         gameRepository.deleteAll();
+    }
+
+    private void playtoBoard(int x, int y, int[][] board, char[][] invisBoard){
+        if(board[x][y] == 0){
+            invisBoard[x][y] = '0';
+            for(int i = x-1; i <= x+1; ++i ){
+                for(int j = y-1; j <= y+1;  ++j){
+                    if(i < 0 || i > 9 || j < 0 || j > 9 || (x == i && y == j) || invisBoard[i][j] != '#'){
+                        continue;
+                    }else if(board[i][j] == 0){
+                        playtoBoard(i, j, board, invisBoard);
+                    }else{
+                    invisBoard[i][j] = Integer.toString(board[i][j]).charAt(0);
+                    }
+                }
+            }
+        } else{ 
+            invisBoard[x][y] = Integer.toString(board[x][y]).charAt(0);
+        }
+    }
+
+    private void  mineBoard(int[][] board){
+        Random rand = new Random();
+        int x = 0, y = 0, mine = 0;
+        while(mine <= 10){
+            x = rand.nextInt(10);
+            y = rand.nextInt(10);
+            if(board[x][y] != 9){
+                board[x][y] = 9;
+                valueSpace(x, y, board);
+                mine+=1;
+            }
+        }
+    }
+
+    private void valueSpace(int x, int y, int[][] board){
+        for(int i = x-1; i <= x+1; ++i ){
+            for(int j = y-1; j <= y+1;  ++j){
+                if(i < 0 || i > 9 || j < 0 || j > 9 || board[i][j] == 9 || (x==i && y==j)){
+                    continue;
+                }
+                board[i][j]+=1;
+            }
+        }
+    }
+
+    private boolean isGameOver(char[][] board){
+        int count = 0;
+        for(int i = 0; i< 10; ++i){
+            for(int j = 0; j < 10; ++j){
+                if(board[i][j] == '#'){
+                    if(count++ > 10){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

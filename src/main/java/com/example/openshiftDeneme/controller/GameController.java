@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.*;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiParam; 
 
 import java.util.Optional;
 //import javax.validation.Valid;
 import java.util.List;
 
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController     
 @RequestMapping("/game")
 @Api(value = "Game Api", description = "Operations to Play the Game and Create a Game")
@@ -29,9 +29,9 @@ public class GameController {
 
     @ApiOperation(value = "Get a Game By ID")
     @GetMapping("/{id}")
-    public Optional<Game> getGame(@ApiParam(value = "Game ID from which Game object will retrieve", required = true)
+    public Game getGame(@ApiParam(value = "Game ID from which Game object will retrieve", required = true)
         @PathVariable("id") String gameId){
-       return  gameService.getGame(gameId);
+       return  gameService.getGame(gameId).get();
     }
 
     @ApiOperation(value = "View The List of Open Games", response = List.class)
@@ -39,11 +39,18 @@ public class GameController {
     public List<Game> getAllGame(){
         return gameService.getAllGame();
     }
-
+    
+    @ApiOperation(value = "Get Only Visible Board By Game ID")
+    @GetMapping("/visible/{id}")
+    public char[][] getVisibBoard(@ApiParam(value ="Game ID from which Game to Get Visible Board", required = true)
+        @PathVariable("id") String gameId){
+            return gameService.getVisibBoard(gameId);
+    }
+     
     @ApiOperation(value = "Play a Game By ID")
     @PutMapping("/play/{id}")
     public ResponseEntity<String> play(@ApiParam(value = "Game ID from which Game to Play", required = true)    
-        @PathVariable("id") String gameId,
+        @PathVariable("id") String gameId,      
         @ApiParam(value = "Coordinates to Play on Game", required = true)
         @JsonSchemaValidate(schemaPath =  "/MoveSchema.json") Move move){
         String message = gameService.play(gameId, move);
@@ -51,16 +58,18 @@ public class GameController {
     }
 
     @ApiOperation(value = "Create a Game That Has 10x10 Matrix To Play With")
-    @PostMapping("/create")
-    public String createGame(){
+    @GetMapping("/create")
+    public Game createGame(){
         return gameService.addGame();
     }
 
     @ApiOperation(value = "Delete Game By ID")
     @DeleteMapping("/delete/{id}")
-    public void deleteMatrix(@ApiParam(value = "Game ID to Delete From Database", required = true)
+    public Game deleteMatrix(@ApiParam(value = "Game ID to Delete From Database", required = true)
         @PathVariable("id") String gameId){
+        Optional<Game> returnedGame = gameService.getGame(gameId);
         gameService.deleteGame(gameId);
+        return returnedGame.get();
     }
 
     @ApiOperation(value = "Delete All Games")
@@ -68,6 +77,5 @@ public class GameController {
     public void deleteAllGame(){
         gameService.deleteAllGame();    
     }
-
 }
 
