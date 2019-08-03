@@ -14,8 +14,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam; 
 
-import java.util.Optional;
-//import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -31,7 +29,7 @@ public class GameController {
     @GetMapping("/{id}")
     public Game getGame(@ApiParam(value = "Game ID from which Game object will retrieve", required = true)
         @PathVariable("id") String gameId){
-       return  gameService.getGame(gameId).get();
+        return gameService.getGame(gameId);
     }
 
     @ApiOperation(value = "View The List of Open Games", response = List.class)
@@ -65,11 +63,9 @@ public class GameController {
 
     @ApiOperation(value = "Delete Game By ID")
     @DeleteMapping("/delete/{id}")
-    public Game deleteMatrix(@ApiParam(value = "Game ID to Delete From Database", required = true)
+    public void deleteGame(@ApiParam(value = "Game ID to Delete From Database", required = true)
         @PathVariable("id") String gameId){
-        Optional<Game> returnedGame = gameService.getGame(gameId);
         gameService.deleteGame(gameId);
-        return returnedGame.get();
     }
 
     @ApiOperation(value = "Delete All Games")

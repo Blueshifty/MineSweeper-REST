@@ -18,8 +18,11 @@ public class GameService {
     @Autowired
     private GameRepository gameRepository;
 
-    public Optional<Game> getGame(String id){
-        return gameRepository.findById(id);
+    public Game getGame(String id){
+        Optional<Game> game = gameRepository.findById(id);
+        if(!game.isPresent()){
+            return null;}
+        return game.get();
     }
 
     public List<Game> getAllGame(){
@@ -30,13 +33,13 @@ public class GameService {
         Optional<Game> game = gameRepository.findById(id);
         if(!game.isPresent()){
             return null; }
-        return game.get().getInvisBoard();
+        return game.get().getVisibBoard();
     }
 
     public Game addGame(){
         Game game = new Game();
         int[][] board = game.getBoard();
-        char[][] invisBoard = game.getInvisBoard();
+        char[][] invisBoard = game.getVisibBoard();
         for(int i = 0; i<10; ++i){
             Arrays.fill(board[i], 0);
             Arrays.fill(invisBoard[i], '#');
@@ -54,7 +57,7 @@ public class GameService {
         String message = "ZoSo";
         int x = move.getX(), y = move.getY();
         int[][] board = game.get().getBoard();  
-        char[][] invisBoard = game.get().getInvisBoard();
+        char[][] invisBoard = game.get().getVisibBoard();
         if(board[x][y] == 9){
             gameRepository.deleteById(gameId);
             message = "Game Over! (Game Has Been Deleted From DB)";
@@ -81,22 +84,22 @@ public class GameService {
         gameRepository.deleteAll();
     }
 
-    private void playtoBoard(int x, int y, int[][] board, char[][] invisBoard){
+    private void playtoBoard(int x, int y, int[][] board, char[][] visibBoard){
         if(board[x][y] == 0){
-            invisBoard[x][y] = '0';
+            visibBoard[x][y] = '0';
             for(int i = x-1; i <= x+1; ++i ){
                 for(int j = y-1; j <= y+1;  ++j){
-                    if(i < 0 || i > 9 || j < 0 || j > 9 || (x == i && y == j) || invisBoard[i][j] != '#'){
+                    if(i < 0 || i > 9 || j < 0 || j > 9 || (x == i && y == j) || visibBoard[i][j] != '#'){
                         continue;
                     }else if(board[i][j] == 0){
-                        playtoBoard(i, j, board, invisBoard);
+                        playtoBoard(i, j, board, visibBoard);
                     }else{
-                    invisBoard[i][j] = Integer.toString(board[i][j]).charAt(0);
+                    visibBoard[i][j] = Integer.toString(board[i][j]).charAt(0);
                     }
                 }
             }
         } else{ 
-            invisBoard[x][y] = Integer.toString(board[x][y]).charAt(0);
+            visibBoard[x][y] = Integer.toString(board[x][y]).charAt(0);
         }
     }
 

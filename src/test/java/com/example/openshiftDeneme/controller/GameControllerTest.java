@@ -1,4 +1,4 @@
-/*package com.example.openshiftDeneme.controller;
+package com.example.openshiftDeneme.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -10,6 +10,7 @@ import static org.hamcrest.Matchers.hasSize;
 
 import com.example.openshiftDeneme.OpenshiftDenemeApplication;
 import com.example.openshiftDeneme.service.GameService;
+import com.example.openshiftDeneme.models.Game;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,26 +48,25 @@ public class GameControllerTest {
 
     @Test
     public void createGameTest() throws Exception {
-        MvcResult result = mvc.perform(post("/game/create")).andExpect(status().isOk())
+        MvcResult result = mvc.perform(get("/game/create")).andExpect(status().isOk())
         .andReturn();
 
-        MockHttpServletResponse response = result.getResponse();
-        int responseLength = response.getContentLength();
+        int responseLength = result.getResponse().getContentLength();
         assertThat(responseLength).isGreaterThan(0);
     }
 
     @Test
     public void getGameTest() throws Exception {
-        String id = service.addGame();
-        mvc.perform(get("/game/" + id)).andExpect(status().isOk())
-        .andExpect(jsonPath("$.id").value(id));
+        Game game = service.addGame();
+        mvc.perform(get("/game/" + game.getId())).andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value(game.getId()));
     }
 
     @Test
     public void getAllGameTest() throws Exception {
         service.deleteAllGame();
-        String[] gameIdList = {service.addGame(), service.addGame(),
-        service.addGame()};
+        String[] gameIdList = {service.addGame().getId(), service.addGame().getId(),
+        service.addGame().getId()};
         mvc.perform(get("/game/allgame")).andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(3)))
         .andExpect(jsonPath("$[0]id").value(gameIdList[0]))
@@ -76,16 +76,14 @@ public class GameControllerTest {
 
     @Test
     public void deleteGameTest() throws Exception {
-        String id = service.addGame();
+        String id = service.addGame().getId();
         mvc.perform(get("/game/" + id)).andExpect(status().isOk())
         .andExpect(jsonPath("$.id").value(id));
         mvc.perform(delete("/game/delete/"+id)).andExpect(status().isOk());
         MvcResult result = mvc.perform(get("/game/"+id)).andExpect(status().isOk())
         .andReturn();
 
-        int responseLength = result.getResponse()
-        .getContentLength();
-        assertThat(responseLength).isZero();
+        assertThat(result.getResponse().getContentAsString().length()).isZero();
     }
 
     @Test
@@ -103,7 +101,7 @@ public class GameControllerTest {
 
     @Test
     public void invalidJsonPlayTest() throws Exception{
-        String id = service.addGame();
+        String id = service.addGame().getId();
         
         MockHttpServletRequestBuilder builder = 
          MockMvcRequestBuilders.put("/game/play/"+id)
@@ -111,14 +109,14 @@ public class GameControllerTest {
          .accept(MediaType.APPLICATION_JSON)
          .characterEncoding("UTF-8")
          .content("{\"x\":\"string\", \"y\":\"string\"}");
-            mvc.perform(builder).andExpect(status().isBadRequest());
+         mvc.perform(builder).andExpect(status().isBadRequest());
     }
 
     @Test
     public void playTest() throws Exception{
         String[] expectedValues = {"Oyun Bitti, Kaybettiniz :(",
         "Mayin Yok, Devam Edin !"};
-        String id = service.addGame();
+        String id = service.addGame().getId();
 
         MockHttpServletRequestBuilder builder = 
          MockMvcRequestBuilders.put("/game/play/"+id)
@@ -134,4 +132,4 @@ public class GameControllerTest {
         .getContentAsString();
         assertThat(expectedValues).contains(responseContent);
     }
-}*/
+}
